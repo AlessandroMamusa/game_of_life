@@ -8,13 +8,13 @@ from game_of_life import Game
 GAME OF LIFE TEST SUIT
 
 rules:
-- If a cell is ON and has fewer than two neighbors that are ON, it
+1 - If a cell is ON and has fewer than two neighbors that are ON, it
 turns OFF.
-- If a cell is ON and has either two or three neighbors that are ON,
+2 - If a cell is ON and has either two or three neighbors that are ON,
 it remains ON.
-- If a cell is ON and has more than three neighbors that are ON, it
+3 - If a cell is ON and has more than three neighbors that are ON, it
 turns OFF.
-- If a cell is OFF and has exactly three neighbors that are ON, it
+4 - If a cell is OFF and has exactly three neighbors that are ON, it
 turns ON.
 """
 
@@ -45,6 +45,26 @@ class TestCell(unittest.TestCase):
     def testCellState(self):
         self.assertTrue(self.game.cellState(self.adam))
         self.assertFalse(self.game.cellState((0, 0)))
+
+    def testCheckRuleOne(self):
+        """
+        1 - If a cell is ON and has fewer than two neighbors that are ON, it
+        turns OFF.
+        """
+        self.assertTrue(self.game.cellState(self.adam))
+        self.game.cicle()
+        self.assertFalse(self.game.cellState(self.adam))
+
+        # restart and add a neighbros to adam
+        self.game.restart()
+        eve = (10, 11)
+        self.game._active_cells.append(eve)
+        self.assertEqual(len(self.game._active_cells), 2)
+
+        self.game.cicle()
+        self.assertFalse(self.game.cellState(self.adam))
+        self.assertFalse(self.game.cellState(eve))
+        self.assertEqual(len(self.game._active_cells), 0)
 
 
 if __name__ == '__main__':
