@@ -25,6 +25,20 @@ class TestCell(unittest.TestCase):
         self.adam = (10, 10)
         self.game = Game((20, 20), [self.adam])
 
+    def tearDown(self):
+        self.game.restart()
+
+    def testRestart(self):
+        self.assertEqual(len(self.game._active_cells), 1)
+        self.assertEqual(self.game._active_cells[0], self.adam)
+        # turn ON (0,0) and (1,1)
+        self.game._active_cells.extend([(0, 0), (1, 1)])
+
+        self.game.restart()
+
+        self.assertEqual(len(self.game._active_cells), 1)
+        self.assertEqual(self.game._active_cells[0], self.adam)
+
     def testNeighbors(self):
         self.assertEqual(len(self.game.neighbors(self.adam)), 0)
 

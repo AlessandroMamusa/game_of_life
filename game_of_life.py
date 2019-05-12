@@ -17,8 +17,11 @@ class Game(object):
 
     def __init__(self, size, starting_cells):
         self.size = size
-        self.starting_cells = list(starting_cells)
-        self.active_cells = list(starting_cells)
+        self._starting_cells = list(starting_cells)
+        self._active_cells = list(starting_cells)
+
+    def restart(self):
+        self._active_cells = list(self._starting_cells)
 
     def neighbors(self, cell):
         """
@@ -30,7 +33,7 @@ class Game(object):
             for ypos in range(y-1, y+2):
                 if (xpos, ypos) == cell:
                     continue
-                if (xpos, ypos) in self.active_cells:
+                if (xpos, ypos) in self._active_cells:
                     neighbors.append((xpos, ypos))
 
         return neighbors
