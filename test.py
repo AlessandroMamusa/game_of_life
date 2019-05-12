@@ -42,6 +42,10 @@ class TestCell(unittest.TestCase):
     def testNeighbors(self):
         self.assertEqual(len(self.game.neighbors(self.adam)), 0)
 
+    def testCellState(self):
+        self.assertTrue(self.game.cellState(self.adam))
+        self.assertFalse(self.game.cellState((0, 0)))
+
 
 if __name__ == '__main__':
     unittest.main()

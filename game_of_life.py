@@ -37,3 +37,6 @@ class Game(object):
                     neighbors.append((xpos, ypos))
 
         return neighbors
+
+    def cellState(self, cell):
+        return cell in self._active_cells
