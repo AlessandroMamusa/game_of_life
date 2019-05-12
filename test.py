@@ -46,7 +46,7 @@ class TestCell(unittest.TestCase):
         self.assertTrue(self.game.cellState(self.adam))
         self.assertFalse(self.game.cellState((0, 0)))
 
-    def testCheckRuleOne(self):
+    def testRuleOne(self):
         """
         1 - If a cell is ON and has fewer than two neighbors that are ON, it
         turns OFF.
@@ -55,7 +55,7 @@ class TestCell(unittest.TestCase):
         self.game.cicle()
         self.assertFalse(self.game.cellState(self.adam))
 
-        # restart and add a neighbros to adam
+        # restart and add a neighbors to adam
         self.game.restart()
         eve = (10, 11)
         self.game._active_cells.append(eve)
@@ -65,6 +65,25 @@ class TestCell(unittest.TestCase):
         self.assertFalse(self.game.cellState(self.adam))
         self.assertFalse(self.game.cellState(eve))
         self.assertEqual(len(self.game._active_cells), 0)
+
+    def testRuleTwo(self):
+        """
+        2 - If a cell is ON and has either two or three neighbors that are ON,
+        it remains ON.
+        """
+        self.assertTrue(self.game.cellState(self.adam))
+
+        # two neighbors
+        pinco, panco = (10, 9), (10, 11)
+        self.game._active_cells.extend([pinco, panco])
+        self.game.cicle()
+        self.assertTrue(self.game.cellState(self.adam))
+
+        # three neighbors
+        qui, quo, qua = (9, 9), (9, 10), (9, 11)
+        self.game._active_cells.extend([qui, quo, qua])
+        self.game.cicle()
+        self.assertTrue(self.game.cellState(self.adam))
 
 
 if __name__ == '__main__':
