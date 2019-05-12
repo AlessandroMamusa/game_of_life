@@ -42,5 +42,13 @@ class Game(object):
         return cell in self._active_cells
 
     def cicle(self):
+        dead = []
+        for cell in self._active_cells:
+            # check rule one
+            if len(self.neighbors(cell)) < 2:
+                dead.append(cell)
+
+        for cell in dead:
+            self._active_cells.remove(cell)
         return
 
