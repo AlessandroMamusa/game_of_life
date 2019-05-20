@@ -23,20 +23,26 @@ class Game(object):
     def restart(self):
         self._active_cells = list(self._starting_cells)
 
-    def neighbors(self, cell):
+    def _neighbors(self, cell):
         """
-        return the list of ON cells around cell
+        return the list of ON and OFF cells around cell
         """
-        neighbors = []
+        on = []
+        off = []
         x, y = cell
         for xpos in range(x-1, x+2):
             for ypos in range(y-1, y+2):
                 if (xpos, ypos) == cell:
                     continue
                 if (xpos, ypos) in self._active_cells:
-                    neighbors.append((xpos, ypos))
+                    on.append((xpos, ypos))
+                else:
+                    off.append((xpos, ypos))
 
-        return neighbors
+        return on, off
+
+    def activeNeighbors(self, cell):
+        return self._neighbors(cell)[0]
 
     def cellState(self, cell):
         return cell in self._active_cells
@@ -44,14 +50,15 @@ class Game(object):
     def cicle(self):
         dead = []
         for cell in self._active_cells:
-            neighbors = self.neighbors(cell)
+            on, off = self._neighbors(cell)
             # check rule one
-            if len(neighbors) < 2:
+            if len(on) < 2:
                 dead.append(cell)
             # check rule three
-            if len(neighbors) > 3:
+            if len(on) > 3:
                 dead.append(cell)
 
+        # remove dead cells
         for cell in dead:
             self._active_cells.remove(cell)
         return
