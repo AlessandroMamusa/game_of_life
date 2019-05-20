@@ -1,6 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from collections import defaultdict
+
 
 class Game(object):
     """
@@ -49,6 +51,7 @@ class Game(object):
 
     def cicle(self):
         dead = []
+        candidates = defaultdict(list)
         for cell in self._active_cells:
             on, off = self._neighbors(cell)
             # check rule one
@@ -57,6 +60,15 @@ class Game(object):
             # check rule three
             if len(on) > 3:
                 dead.append(cell)
+
+            for cell in off:
+                candidates[cell].append(cell)
+
+        # create new cells
+        for cell, neighbors in candidates.items():
+            # check rule four
+            if len(neighbors) == 3:
+                self._active_cells.append(cell)
 
         # remove dead cells
         for cell in dead:
