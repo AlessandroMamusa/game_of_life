@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/AlessandroMamusa/game_of_life.svg?branch=master)](https://travis-ci.com/AlessandroMamusa/game_of_life) [![Coverage Status](https://coveralls.io/repos/github/AlessandroMamusa/game_of_life/badge.svg)](https://coveralls.io/github/AlessandroMamusa/game_of_life)
