@@ -99,6 +99,22 @@ class TestCell(unittest.TestCase):
         self.game.cicle()
         self.assertFalse(self.game.cellState(self.adam))
 
+    def testRuleFour(self):
+        """
+        4 - If a cell is OFF and has exactly three neighbors that are ON, it
+        turns ON.
+        """
+        self.assertTrue(self.game.cellState(self.adam))
+
+        qui, quo, qua = (0, 0), (0, 1), (1, 0)
+        new_born = (1, 1)
+
+        self.game._active_cells.extend([qui, quo, qua])
+
+        self.assertFalse(self.game.cellState(new_born))
+        self.game.cicle()
+        self.assertTrue(self.game.cellState(new_born))
+
 
 if __name__ == '__main__':
     unittest.main()
