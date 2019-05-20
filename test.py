@@ -79,6 +79,8 @@ class TestCell(unittest.TestCase):
         self.game.cicle()
         self.assertTrue(self.game.cellState(self.adam))
 
+        self.game.restart()
+
         # three neighbors
         qui, quo, qua = (9, 9), (9, 10), (9, 11)
         self.game._active_cells.extend([qui, quo, qua])
