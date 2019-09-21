@@ -117,6 +117,25 @@ class TestCell(unittest.TestCase):
         self.game.cicle()
         self.assertTrue(self.game.cellState(new_born))
 
+    def testState(self):
+        game_matrix = self.game.state()
+
+        # check matrix dimensions
+        self.assertEqual(len(game_matrix), 20)
+        for line in game_matrix:
+            self.assertEqual(len(line), 20)
+
+        # check adam state
+        adam_x, adam_y = self.adam
+        self.assertTrue(game_matrix[adam_x][adam_y])
+
+        # check every other cell
+        for x in range(len(game_matrix)):
+            for y, cell in enumerate(line):
+                if (x, y) == self.adam:
+                    continue
+                self.assertFalse(cell)
+
 
 if __name__ == '__main__':
     unittest.main()

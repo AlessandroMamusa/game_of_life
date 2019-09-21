@@ -74,3 +74,8 @@ class Game(object):
         for cell in dead:
             self._active_cells.remove(cell)
         return
+
+    def state(self):
+        lines, cols = self.size
+        matrix_state = [[True if self.cellState((x, y)) else False for x in range(lines)] for y in range(cols)]
+        return matrix_state
