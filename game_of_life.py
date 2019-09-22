@@ -21,6 +21,7 @@ class Game(object):
         self.size = size
         self._starting_cells = list(starting_cells)
         self._active_cells = list(starting_cells)
+        self.game_over = False
 
     def restart(self):
         self._active_cells = list(self._starting_cells)
@@ -73,6 +74,9 @@ class Game(object):
         # remove dead cells
         for cell in dead:
             self._active_cells.remove(cell)
+
+        if len(self._active_cells) == 0:
+            self.game_over = True
         return
 
     def state(self):

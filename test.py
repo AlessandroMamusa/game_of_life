@@ -136,6 +136,10 @@ class TestCell(unittest.TestCase):
                     continue
                 self.assertFalse(cell)
 
+    def testGameOver(self):
+        self.assertFalse(self.game.game_over)
+        self.game.cicle()
+        self.assertTrue(self.game.game_over)
 
 if __name__ == '__main__':
     unittest.main()
