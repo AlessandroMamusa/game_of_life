@@ -3,6 +3,10 @@
 
 from collections import defaultdict
 
+MYPY = False
+if MYPY:
+    from typing import Tuple, List, DefaultDict
+
 
 class Game(object):
     """
@@ -18,15 +22,17 @@ class Game(object):
     """
 
     def __init__(self, size, starting_cells):
+        # type: (Tuple[int, int], List[Tuple[int, int]]) -> None
         self.size = size
-        self._starting_cells = list(starting_cells)
-        self._active_cells = list(starting_cells)
+        self._starting_cells = list(starting_cells)  # type: List[Tuple[int, int]]
+        self._active_cells = list(starting_cells)  # type: List[Tuple[int, int]]
         self.game_over = False
 
     def restart(self):
         self._active_cells = list(self._starting_cells)
 
     def _neighbors(self, cell):
+        # type: (Tuple[int, int]) -> Tuple[List[Tuple[int, int]], List[Tuple[int, int]]]
         """
         return the list of ON and OFF cells around cell
         """
@@ -45,14 +51,17 @@ class Game(object):
         return on, off
 
     def activeNeighbors(self, cell):
+        # type: (Tuple[int, int]) -> List[Tuple[int, int]]
         return self._neighbors(cell)[0]
 
     def cellState(self, cell):
+        # type: (Tuple[int, int]) -> bool
         return cell in self._active_cells
 
     def cicle(self):
+        # type: () -> None
         dead = []
-        candidates = defaultdict(list)
+        candidates = defaultdict(list)  # type: DefaultDict
         for cell in self._active_cells:
             on, off = self._neighbors(cell)
             # check rule one
@@ -80,6 +89,7 @@ class Game(object):
         return
 
     def state(self):
+        # type: () -> List[List[bool]]
         lines, cols = self.size
         matrix_state = [[True if self.cellState((x, y)) else False for x in range(lines)] for y in range(cols)]
         return matrix_state
